@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-page',
   standalone: true,
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.css'],
+  styleUrls: ['./home-page.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, RouterLink],
 })
