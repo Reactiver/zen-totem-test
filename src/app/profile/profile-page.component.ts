@@ -1,16 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  ValidationErrors,
-  ValidatorFn,
-} from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { TuiFieldErrorPipeModule, TuiInputModule } from '@taiga-ui/kit';
 import { TuiErrorModule } from '@taiga-ui/core';
-import { TuiValidationError } from '@taiga-ui/cdk';
+import { maxLengthValidator, textRequiredValidator } from './validators';
 
 @Component({
   selector: 'app-profile-page',
@@ -34,25 +27,4 @@ export class ProfilePageComponent {
       maxLengthValidator(255, 'Имя не должно превышать 255 символов'),
     ]),
   });
-}
-
-export function textRequiredValidator(message: string): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-    const value = control.value;
-
-    return value === undefined || value === null || value === ''
-      ? new TuiValidationError(message)
-      : null;
-  };
-}
-
-export function maxLengthValidator(
-  maxLength: number,
-  message: string
-): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-    const value = control.value;
-
-    return value.length > maxLength ? new TuiValidationError(message) : null;
-  };
 }
