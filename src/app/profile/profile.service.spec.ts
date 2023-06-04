@@ -1,7 +1,8 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 
-import { Profile, ProfileService } from './profile.service';
+import { ProfileService } from './profile.service';
 import { switchMap } from 'rxjs';
+import { Profile } from './types';
 
 const profileData = {
   email: 'my-mail@gmail.com',

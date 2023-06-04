@@ -23,12 +23,13 @@ import {
   minLengthValidator,
   textRequiredValidator,
   urlValidator,
-} from './form-helpers/validators';
-import { Profile, ProfileService } from './profile.service';
+  validateAllFormFields,
+} from './form-helpers';
+import { ProfileService } from './profile.service';
 import { BehaviorSubject, catchError, finalize, map, switchMap } from 'rxjs';
 import { TuiLetModule } from '@taiga-ui/cdk';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { validateAllFormFields } from './form-helpers/validate-all-form-fields';
+import { Profile } from './types';
 
 const NAME_MAX_LENGTH = 255;
 

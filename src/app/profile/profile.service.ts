@@ -8,14 +8,7 @@ import {
   throwError,
   timer,
 } from 'rxjs';
-
-export type Profile = Readonly<{
-  email: string;
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  webSiteUrl: string | null;
-}>;
+import { Profile } from './types';
 
 const DELAY_MS = 500;
 
