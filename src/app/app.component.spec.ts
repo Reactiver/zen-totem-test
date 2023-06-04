@@ -1,18 +1,17 @@
-import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { render, screen } from '@testing-library/angular';
 import { TuiRootModule } from '@taiga-ui/core';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HomePageComponent } from './home/home-page.component';
+import { routes } from './app-routing.module';
 
-describe('AppComponent', () => {
-  beforeEach(() =>
-    TestBed.configureTestingModule({
-      imports: [RouterTestingModule, TuiRootModule, AppComponent],
-    })
-  );
-
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+test('Should render home page by default', async () => {
+  await render(AppComponent, {
+    imports: [HomePageComponent, TuiRootModule, RouterTestingModule],
+    routes: routes,
   });
+
+  const title = await screen.findByText('Home Page');
+
+  expect(title).toBeInTheDocument();
 });

@@ -1,21 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { HomePageComponent } from './home-page.component';
+import { render, screen } from '@testing-library/angular';
 
-describe('ChildComponent', () => {
-  let component: HomePageComponent;
-  let fixture: ComponentFixture<HomePageComponent>;
+test('Should render "Home Page" title', async () => {
+  await render(HomePageComponent);
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [HomePageComponent],
-    });
-    fixture = TestBed.createComponent(HomePageComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  const title = await screen.findByText('Home Page');
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  expect(title).toBeInTheDocument();
 });
