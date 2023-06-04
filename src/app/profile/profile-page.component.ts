@@ -11,6 +11,7 @@ import {
   maxLengthValidator,
   minLengthValidator,
   textRequiredValidator,
+  urlValidator,
 } from './validators';
 
 const NAME_MAX_LENGTH = 255;
@@ -48,7 +49,9 @@ export class ProfilePageComponent {
       ),
     ]),
     phoneNumber: new FormControl('', [
+      textRequiredValidator('Введите номер телефона'),
       minLengthValidator(12, `Номер телефона должен содержать 10 цифр`),
     ]),
+    webSiteUrl: new FormControl('', [urlValidator('Неверный URL')]),
   });
 }

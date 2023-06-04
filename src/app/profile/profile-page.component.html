@@ -39,6 +39,16 @@
             [error]="[] | tuiFieldError | async"
           ></tui-error>
         </div>
+        <div class="tui-form__row">
+          <tui-input formControlName="webSiteUrl">
+            Адрес сайта
+            <span class="tui-required"></span>
+          </tui-input>
+          <tui-error
+            formControlName="webSiteUrl"
+            [error]="[] | tuiFieldError | async"
+          ></tui-error>
+        </div>
       </div>
     </div>
   </form>

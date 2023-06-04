@@ -32,3 +32,14 @@ export function minLengthValidator(
     return value.length < maxLength ? new TuiValidationError(message) : null;
   };
 }
+
+export function urlValidator(message: string): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const value = control.value;
+    const urlRegex = new RegExp(
+      '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?'
+    );
+
+    return urlRegex.test(value) ? null : new TuiValidationError(message);
+  };
+}
