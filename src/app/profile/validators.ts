@@ -21,3 +21,14 @@ export function maxLengthValidator(
     return value.length > maxLength ? new TuiValidationError(message) : null;
   };
 }
+
+export function minLengthValidator(
+  maxLength: number,
+  message: string
+): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const value = control.value;
+
+    return value.length < maxLength ? new TuiValidationError(message) : null;
+  };
+}

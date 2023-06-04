@@ -1,9 +1,17 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { TuiFieldErrorPipeModule, TuiInputModule } from '@taiga-ui/kit';
+import {
+  TuiFieldErrorPipeModule,
+  TuiInputModule,
+  TuiInputPhoneModule,
+} from '@taiga-ui/kit';
 import { TuiErrorModule } from '@taiga-ui/core';
-import { maxLengthValidator, textRequiredValidator } from './validators';
+import {
+  maxLengthValidator,
+  minLengthValidator,
+  textRequiredValidator,
+} from './validators';
 
 const NAME_MAX_LENGTH = 255;
 
@@ -16,6 +24,7 @@ const NAME_MAX_LENGTH = 255;
     TuiInputModule,
     TuiErrorModule,
     TuiFieldErrorPipeModule,
+    TuiInputPhoneModule,
   ],
   templateUrl: './profile-page.component.html',
   styleUrls: ['./profile-page.component.less'],
@@ -37,6 +46,9 @@ export class ProfilePageComponent {
         NAME_MAX_LENGTH,
         `Фамилия не должна превышать ${NAME_MAX_LENGTH} символов`
       ),
+    ]),
+    phoneNumber: new FormControl('', [
+      minLengthValidator(12, `Номер телефона должен содержать 10 цифр`),
     ]),
   });
 }

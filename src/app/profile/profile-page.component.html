@@ -29,6 +29,16 @@
             [error]="[] | tuiFieldError | async"
           ></tui-error>
         </div>
+        <div class="tui-form__row">
+          <tui-input-phone formControlName="phoneNumber">
+            Номер телефона
+            <span class="tui-required"></span>
+          </tui-input-phone>
+          <tui-error
+            formControlName="phoneNumber"
+            [error]="[] | tuiFieldError | async"
+          ></tui-error>
+        </div>
       </div>
     </div>
   </form>

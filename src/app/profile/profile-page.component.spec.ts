@@ -1,7 +1,11 @@
 import { ProfilePageComponent } from './profile-page.component';
 import { render, screen } from '@testing-library/angular';
 import { ReactiveFormsModule } from '@angular/forms';
-import { TuiFieldErrorPipeModule, TuiInputModule } from '@taiga-ui/kit';
+import {
+  TuiFieldErrorPipeModule,
+  TuiInputModule,
+  TuiInputPhoneModule,
+} from '@taiga-ui/kit';
 import { TuiErrorModule } from '@taiga-ui/core';
 import { CommonModule } from '@angular/common';
 import userEvent from '@testing-library/user-event';
@@ -22,6 +26,7 @@ test('should display required error if user touched first name field', async () 
       TuiInputModule,
       TuiErrorModule,
       TuiFieldErrorPipeModule,
+      TuiInputPhoneModule,
     ],
   });
 
