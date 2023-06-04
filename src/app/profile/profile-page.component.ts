@@ -54,7 +54,7 @@ export class ProfilePageComponent {
   private readonly profileService = inject(ProfileService);
   private readonly tuiAlertService = inject(TuiAlertService);
 
-  form$ = this.profileService.getProfile().pipe(
+  readonly form$ = this.profileService.getProfile().pipe(
     map(({ email, firstName, lastName, phoneNumber, webSiteUrl }) => {
       return new FormGroup({
         email: new FormControl<Profile['email']>(email),
@@ -94,7 +94,9 @@ export class ProfilePageComponent {
       .saveProfile(form.getRawValue())
       .pipe(
         switchMap(() =>
-          this.tuiAlertService.open('Profile updated successfully', {})
+          this.tuiAlertService.open('Profile updated successfully', {
+            status: TuiNotification.Success,
+          })
         ),
         catchError((errorMessage: string) =>
           this.tuiAlertService.open(errorMessage, {
