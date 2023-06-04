@@ -6,7 +6,11 @@ import {
   TuiInputModule,
   TuiInputPhoneModule,
 } from '@taiga-ui/kit';
-import { TuiButtonModule, TuiErrorModule } from '@taiga-ui/core';
+import {
+  TuiButtonModule,
+  TuiErrorModule,
+  TuiLoaderModule,
+} from '@taiga-ui/core';
 import {
   maxLengthValidator,
   minLengthValidator,
@@ -31,6 +35,7 @@ const NAME_MAX_LENGTH = 255;
     TuiInputPhoneModule,
     TuiLetModule,
     TuiButtonModule,
+    TuiLoaderModule,
   ],
   templateUrl: './profile-page.component.html',
   styleUrls: ['./profile-page.component.less'],
