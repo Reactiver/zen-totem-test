@@ -24,6 +24,7 @@
     "@taiga-ui/core": "^3.29.2",
     "@taiga-ui/icons": "^3.29.2",
     "@taiga-ui/kit": "^3.29.2",
+    "@taiga-ui/styles": "^3.29.2",
     "@tinkoff/ng-dompurify": "3.0.0",
     "dompurify": "2.2.9",
     "prettier": "^2.8.8",

@@ -1,3 +1,29 @@
 <div class="page-container">
   <h1>Profile Page</h1>
+
+  <form [formGroup]="form">
+    <div class="tui-row">
+      <div class="tui-col_8">
+        <div class="tui-form__row">
+          <tui-input
+            formControlName="email"
+            [readOnly]="true"
+            [focusable]="false"
+          >
+            Email
+          </tui-input>
+        </div>
+        <div class="tui-form__row">
+          <tui-input formControlName="firstName">
+            First Name
+            <span class="tui-required"></span>
+          </tui-input>
+          <tui-error
+            formControlName="firstName"
+            [error]="[] | tuiFieldError | async"
+          ></tui-error>
+        </div>
+      </div>
+    </div>
+  </form>
 </div>
