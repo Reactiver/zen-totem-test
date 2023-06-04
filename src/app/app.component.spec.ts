@@ -27,4 +27,13 @@ test('should open needed page by clicking link in the header', async () => {
 
   fireEvent.click(await screen.findByText('Inventory'));
   expect(await screen.findByText('Inventory Page')).toBeInTheDocument();
+
+  fireEvent.click(await screen.findByText('Reports'));
+  expect(await screen.findByText('Reports Page')).toBeInTheDocument();
+
+  fireEvent.click(await screen.findByText('Billing'));
+  expect(await screen.findByText('Billing Page')).toBeInTheDocument();
+
+  fireEvent.click(await screen.findByText('Profile'));
+  expect(await screen.findByText('Profile Page')).toBeInTheDocument();
 });

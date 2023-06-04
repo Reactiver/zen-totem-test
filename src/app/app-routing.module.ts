@@ -14,6 +14,21 @@ export const routes: Routes = [
         .InventoryPageComponent,
   },
   {
+    path: 'reports',
+    loadComponent: async () =>
+      (await import('./reports/reports-page.component')).ReportsPageComponent,
+  },
+  {
+    path: 'billing',
+    loadComponent: async () =>
+      (await import('./billing/billing-page.component')).BillingPageComponent,
+  },
+  {
+    path: 'profile',
+    loadComponent: async () =>
+      (await import('./profile/profile-page.component')).ProfilePageComponent,
+  },
+  {
     path: '**',
     redirectTo: 'home',
   },
