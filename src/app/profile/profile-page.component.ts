@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  inject,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -7,9 +12,11 @@ import {
   TuiInputPhoneModule,
 } from '@taiga-ui/kit';
 import {
+  TuiAlertService,
   TuiButtonModule,
   TuiErrorModule,
   TuiLoaderModule,
+  TuiNotification,
 } from '@taiga-ui/core';
 import {
   maxLengthValidator,
@@ -18,8 +25,9 @@ import {
   urlValidator,
 } from './validators';
 import { Profile, ProfileService } from './profile.service';
-import { map } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs';
 import { TuiLetModule } from '@taiga-ui/cdk';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 const NAME_MAX_LENGTH = 255;
 
@@ -42,7 +50,9 @@ const NAME_MAX_LENGTH = 255;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfilePageComponent {
+  private readonly destroyRef = inject(DestroyRef);
   private readonly profileService = inject(ProfileService);
+  private readonly tuiAlertService = inject(TuiAlertService);
 
   form$ = this.profileService.getProfile().pipe(
     map(({ email, firstName, lastName, phoneNumber, webSiteUrl }) => {
@@ -76,9 +86,25 @@ export class ProfilePageComponent {
   save(form: FormGroup): void {
     if (form.invalid) {
       this.validateAllFormFields(form);
-    } else {
-      this.profileService.saveProfile(form.getRawValue());
+
+      return;
     }
+
+    this.profileService
+      .saveProfile(form.getRawValue())
+      .pipe(
+        switchMap(() =>
+          this.tuiAlertService.open('Profile updated successfully', {})
+        ),
+        catchError((errorMessage: string) =>
+          this.tuiAlertService.open(errorMessage, {
+            status: TuiNotification.Error,
+            autoClose: false,
+          })
+        ),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe();
   }
 
   private validateAllFormFields(form: FormGroup): void {
