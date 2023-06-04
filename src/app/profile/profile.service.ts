@@ -1,5 +1,13 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable, switchMap, tap, timer } from 'rxjs';
+import {
+  BehaviorSubject,
+  map,
+  Observable,
+  switchMap,
+  tap,
+  throwError,
+  timer,
+} from 'rxjs';
 
 export type Profile = Readonly<{
   email: string;
@@ -30,6 +38,12 @@ export class ProfileService {
   }
 
   saveProfile(newProfile: Profile): Observable<null> {
+    if (newProfile.firstName.length === 1) {
+      return timer(DELAY_MS).pipe(
+        switchMap(() => throwError(() => 'Something went wrong'))
+      );
+    }
+
     return timer(DELAY_MS).pipe(
       tap(() => {
         this.profileData.next(newProfile);
