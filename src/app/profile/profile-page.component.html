@@ -52,6 +52,7 @@
             size="l"
             type="submit"
             class="tui-form__button"
+            [showLoader]="(isFormSaving$ | async) || false"
             (click)="save(form)"
           >
             Save

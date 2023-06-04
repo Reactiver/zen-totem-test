@@ -25,7 +25,7 @@ import {
   urlValidator,
 } from './validators';
 import { Profile, ProfileService } from './profile.service';
-import { catchError, map, switchMap } from 'rxjs';
+import { BehaviorSubject, catchError, finalize, map, switchMap } from 'rxjs';
 import { TuiLetModule } from '@taiga-ui/cdk';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -53,6 +53,10 @@ export class ProfilePageComponent {
   private readonly destroyRef = inject(DestroyRef);
   private readonly profileService = inject(ProfileService);
   private readonly tuiAlertService = inject(TuiAlertService);
+
+  private readonly isSaving = new BehaviorSubject<boolean>(false);
+
+  readonly isFormSaving$ = this.isSaving.asObservable();
 
   readonly form$ = this.profileService.getProfile().pipe(
     map(({ email, firstName, lastName, phoneNumber, webSiteUrl }) => {
@@ -90,9 +94,12 @@ export class ProfilePageComponent {
       return;
     }
 
+    this.isSaving.next(true);
+
     this.profileService
       .saveProfile(form.getRawValue())
       .pipe(
+        finalize(() => this.isSaving.next(false)),
         switchMap(() =>
           this.tuiAlertService.open('Profile updated successfully', {
             status: TuiNotification.Success,
