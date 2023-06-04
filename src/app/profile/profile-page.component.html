@@ -11,11 +11,21 @@
         </div>
         <div class="tui-form__row">
           <tui-input formControlName="firstName">
-            First Name
+            Имя
             <span class="tui-required"></span>
           </tui-input>
           <tui-error
             formControlName="firstName"
+            [error]="[] | tuiFieldError | async"
+          ></tui-error>
+        </div>
+        <div class="tui-form__row">
+          <tui-input formControlName="lastName">
+            Фамилия
+            <span class="tui-required"></span>
+          </tui-input>
+          <tui-error
+            formControlName="lastName"
             [error]="[] | tuiFieldError | async"
           ></tui-error>
         </div>

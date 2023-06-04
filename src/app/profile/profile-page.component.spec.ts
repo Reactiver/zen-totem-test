@@ -15,8 +15,6 @@ test('should display "Profile Page" title', async () => {
 });
 
 test('should display required error if user touched first name field', async () => {
-  const user = userEvent.setup();
-
   await render(ProfilePageComponent, {
     componentImports: [
       CommonModule,
@@ -27,8 +25,8 @@ test('should display required error if user touched first name field', async () 
     ],
   });
 
-  await user.click(await screen.findByLabelText('First Name'));
-  await user.click(document.body);
+  await userEvent.click(await screen.findByLabelText('Имя'));
+  await userEvent.click(document.body);
 
   expect(await screen.findByText('Введите имя')).toBeInTheDocument();
 });

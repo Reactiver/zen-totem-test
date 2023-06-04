@@ -5,6 +5,8 @@ import { TuiFieldErrorPipeModule, TuiInputModule } from '@taiga-ui/kit';
 import { TuiErrorModule } from '@taiga-ui/core';
 import { maxLengthValidator, textRequiredValidator } from './validators';
 
+const NAME_MAX_LENGTH = 255;
+
 @Component({
   selector: 'app-profile-page',
   standalone: true,
@@ -24,7 +26,17 @@ export class ProfilePageComponent {
     email: new FormControl('my-email@gmail.com'),
     firstName: new FormControl('', [
       textRequiredValidator('Введите имя'),
-      maxLengthValidator(255, 'Имя не должно превышать 255 символов'),
+      maxLengthValidator(
+        NAME_MAX_LENGTH,
+        `Имя не должно превышать ${NAME_MAX_LENGTH} символов`
+      ),
+    ]),
+    lastName: new FormControl('', [
+      textRequiredValidator('Введите фамилию'),
+      maxLengthValidator(
+        NAME_MAX_LENGTH,
+        `Фамилия не должна превышать ${NAME_MAX_LENGTH} символов`
+      ),
     ]),
   });
 }
