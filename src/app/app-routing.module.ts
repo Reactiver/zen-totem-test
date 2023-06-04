@@ -1,11 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomePageComponent } from './home/home-page.component';
 
 export const routes: Routes = [
   {
     path: 'home',
-    loadComponent: () => HomePageComponent,
+    loadComponent: async () =>
+      (await import('./home/home-page.component')).HomePageComponent,
+  },
+  {
+    path: 'inventory',
+    loadComponent: async () =>
+      (await import('./inventory/inventory-page.component'))
+        .InventoryPageComponent,
   },
   {
     path: '**',

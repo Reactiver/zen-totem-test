@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  selector: 'app-page',
+  selector: 'app-home-page',
   standalone: true,
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.less'],
