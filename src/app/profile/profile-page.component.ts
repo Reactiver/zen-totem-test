@@ -23,11 +23,12 @@ import {
   minLengthValidator,
   textRequiredValidator,
   urlValidator,
-} from './validators';
+} from './form-helpers/validators';
 import { Profile, ProfileService } from './profile.service';
 import { BehaviorSubject, catchError, finalize, map, switchMap } from 'rxjs';
 import { TuiLetModule } from '@taiga-ui/cdk';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { validateAllFormFields } from './form-helpers/validate-all-form-fields';
 
 const NAME_MAX_LENGTH = 255;
 
@@ -89,7 +90,7 @@ export class ProfilePageComponent {
 
   save(form: FormGroup): void {
     if (form.invalid) {
-      this.validateAllFormFields(form);
+      validateAllFormFields(form);
 
       return;
     }
@@ -114,16 +115,5 @@ export class ProfilePageComponent {
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe();
-  }
-
-  private validateAllFormFields(form: FormGroup): void {
-    Object.keys(form.controls).forEach((field) => {
-      const control = form.get(field);
-      if (control instanceof FormControl) {
-        control.markAsTouched({ onlySelf: true });
-      } else if (control instanceof FormGroup) {
-        this.validateAllFormFields(control);
-      }
-    });
   }
 }
