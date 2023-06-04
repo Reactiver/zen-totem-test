@@ -6,7 +6,6 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './billing-page.component.html',
-  styleUrls: ['./billing-page.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BillingPageComponent {}

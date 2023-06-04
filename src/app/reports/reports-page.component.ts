@@ -6,7 +6,6 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './reports-page.component.html',
-  styleUrls: ['./reports-page.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReportsPageComponent {}

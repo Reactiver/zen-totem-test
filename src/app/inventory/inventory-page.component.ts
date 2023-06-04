@@ -6,7 +6,6 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './inventory-page.component.html',
-  styleUrls: ['./inventory-page.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InventoryPageComponent {}
