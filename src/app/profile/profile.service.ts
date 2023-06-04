@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, switchMap, tap, timer } from 'rxjs';
 
-type Profile = Readonly<{
+export type Profile = Readonly<{
   email: string;
   firstName: string;
   lastName: string;
   phoneNumber: string;
-  webSiteUrl?: string;
+  webSiteUrl: string | null;
 }>;
 
 const DELAY_MS = 500;
@@ -20,6 +20,7 @@ export class ProfileService {
     firstName: 'John',
     lastName: 'Doe',
     phoneNumber: '+78005553535',
+    webSiteUrl: null,
   });
 
   getProfile(): Observable<Profile> {

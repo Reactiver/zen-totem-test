@@ -17,7 +17,7 @@ import {
   textRequiredValidator,
   urlValidator,
 } from './validators';
-import { ProfileService } from './profile.service';
+import { Profile, ProfileService } from './profile.service';
 import { map } from 'rxjs';
 import { TuiLetModule } from '@taiga-ui/cdk';
 
@@ -47,27 +47,48 @@ export class ProfilePageComponent {
   form$ = this.profileService.getProfile().pipe(
     map(({ email, firstName, lastName, phoneNumber, webSiteUrl }) => {
       return new FormGroup({
-        email: new FormControl(email),
-        firstName: new FormControl(firstName, [
+        email: new FormControl<Profile['email']>(email),
+        firstName: new FormControl<Profile['firstName']>(firstName, [
           textRequiredValidator('Введите имя'),
           maxLengthValidator(
             NAME_MAX_LENGTH,
             `Имя не должно превышать ${NAME_MAX_LENGTH} символов`
           ),
         ]),
-        lastName: new FormControl(lastName, [
+        lastName: new FormControl<Profile['lastName']>(lastName, [
           textRequiredValidator('Введите фамилию'),
           maxLengthValidator(
             NAME_MAX_LENGTH,
             `Фамилия не должна превышать ${NAME_MAX_LENGTH} символов`
           ),
         ]),
-        phoneNumber: new FormControl(phoneNumber, [
+        phoneNumber: new FormControl<Profile['phoneNumber']>(phoneNumber, [
           textRequiredValidator('Введите номер телефона'),
           minLengthValidator(12, `Номер телефона должен содержать 10 цифр`),
         ]),
-        webSiteUrl: new FormControl(webSiteUrl, [urlValidator('Неверный URL')]),
+        webSiteUrl: new FormControl<Profile['webSiteUrl']>(webSiteUrl, [
+          urlValidator('Неверный URL'),
+        ]),
       });
     })
   );
+
+  save(form: FormGroup): void {
+    if (form.invalid) {
+      this.validateAllFormFields(form);
+    } else {
+      this.profileService.saveProfile(form.getRawValue());
+    }
+  }
+
+  private validateAllFormFields(form: FormGroup): void {
+    Object.keys(form.controls).forEach((field) => {
+      const control = form.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
+  }
 }

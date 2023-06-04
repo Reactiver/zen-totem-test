@@ -40,17 +40,20 @@
           ></tui-error>
         </div>
         <div class="tui-form__row">
-          <tui-input formControlName="webSiteUrl">
-            Адрес сайта
-            <span class="tui-required"></span>
-          </tui-input>
+          <tui-input formControlName="webSiteUrl"> Адрес сайта </tui-input>
           <tui-error
             formControlName="webSiteUrl"
             [error]="[] | tuiFieldError | async"
           ></tui-error>
         </div>
         <div class="tui-form__buttons">
-          <button tuiButton size="l" type="submit" class="tui-form__button">
+          <button
+            tuiButton
+            size="l"
+            type="submit"
+            class="tui-form__button"
+            (click)="save(form)"
+          >
             Save
           </button>
         </div>

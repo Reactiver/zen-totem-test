@@ -36,6 +36,11 @@ export function minLengthValidator(
 export function urlValidator(message: string): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const value = control.value;
+
+    if (value === undefined || value === null || value === '') {
+      return null;
+    }
+
     const urlRegex = new RegExp(
       '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?'
     );
