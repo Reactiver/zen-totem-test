@@ -1,7 +1,7 @@
 <div class="page-container">
   <h1>Profile Page</h1>
 
-  <form [formGroup]="form">
+  <form *ngIf="form$ | async as form" [formGroup]="form">
     <div class="tui-row">
       <div class="tui-col_8">
         <div class="tui-form__row">
@@ -48,6 +48,11 @@
             formControlName="webSiteUrl"
             [error]="[] | tuiFieldError | async"
           ></tui-error>
+        </div>
+        <div class="tui-form__buttons">
+          <button tuiButton size="l" type="submit" class="tui-form__button">
+            Save
+          </button>
         </div>
       </div>
     </div>
